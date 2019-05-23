@@ -4,7 +4,7 @@
  * @author angelxuanchang
  */
 
-import THREE from 'three';
+// DJM import THREE from 'three';
 
 // @ts-ignore
 THREE.MTLLoader = function(manager) {
