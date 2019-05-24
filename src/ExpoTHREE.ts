@@ -1,5 +1,7 @@
 import '@expo/browser-polyfill';
 
+import THREE from './Three'; // DJM
+
 import * as AR from './AR';
 import * as utils from './utils';
 import Renderer from './Renderer';

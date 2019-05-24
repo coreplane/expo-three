@@ -1,5 +1,5 @@
 import { AR } from 'expo';
-import { PlaneAnchor } from 'expo/src/AR';
+import { PlaneAnchor } from 'expo/build/AR'; // DJM
 
 import THREE from '../Three';
 

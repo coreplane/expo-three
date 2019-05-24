@@ -1,6 +1,6 @@
 import AssetUtils from 'expo-asset-utils';
 import { Platform } from 'react-native';
-import THREE from '../Three';
+const THREE = require('../Three'); // DJM
 import readAsStringAsync from './readAsStringAsync';
 
 function provideBundlingExtensionErrorMessage({ extension, funcName }) {

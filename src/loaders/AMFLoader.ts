@@ -20,7 +20,7 @@
  */
 
 import { TextDecoder } from 'text-encoding';
-// DJM import THREE from 'three';
+const THREE = require('../Three'); // DJM
 
 // @ts-ignore
 const {JSZip} = window;
