@@ -1,4 +1,4 @@
-const THREE = require('../Three'); // DJM
+const THREE = require('./Three'); // DJM
 
 function getExtension(uri: string): string {
   const lastUriComponent = uri.split('.').pop() as string;
