@@ -34,7 +34,9 @@
   "dependencies": {
     "@expo/browser-polyfill": "^0.0.1-alpha.3",
     "color-temperature": "0.2.7",
+    "expo": "^32.0.0",
     "expo-asset-utils": "^1.0.0",
+    "react-native": "*",
     "three": "^0.102.1"
   },
   "peerDependencies": {
