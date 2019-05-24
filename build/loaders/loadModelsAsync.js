@@ -40,7 +40,11 @@ export async function loadTextureAsync({ asset }) {
     }
     if (Platform.OS === 'web') {
         const assetUrl = await AssetUtils.uriAsync(asset);
-        return new THREE.TextureLoader().load(assetUrl);
+        // DJM - return an actual promise here
+        const loader = new THREE.TextureLoader();
+        return new Promise((resolve, reject) => {
+            loader.load(assetUrl, texture => resolve(texture), undefined, err => reject(err));
+        });
     }
     let nextAsset = asset;
     if (!nextAsset.localUri) {
