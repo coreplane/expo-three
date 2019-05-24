@@ -19,7 +19,7 @@
  *
  */
 import { TextDecoder } from 'text-encoding';
-import THREE from 'three';
+const THREE = require('../Three'); // DJM
 // @ts-ignore
 const { JSZip } = window;
 class AMFLoader {

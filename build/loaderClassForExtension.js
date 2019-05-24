@@ -1,4 +1,4 @@
-import THREE from './Three';
+const THREE = require('./Three'); // DJM
 function getExtension(uri) {
     const lastUriComponent = uri.split('.').pop();
     return lastUriComponent.split('?')[0].split('#')[0];

@@ -3,7 +3,7 @@
  *
  * @author angelxuanchang
  */
-import THREE from 'three';
+const THREE = require('../Three'); // DJM
 // @ts-ignore
 THREE.MTLLoader = function (manager) {
     // @ts-ignore

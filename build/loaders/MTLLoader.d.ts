@@ -3,4 +3,4 @@
  *
  * @author angelxuanchang
  */
-export {};
+declare const THREE: any;
