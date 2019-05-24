@@ -67,3 +67,4 @@ export {
 };
 
 export * from './loaders/loadModelsAsync';
+export { default as suppressExpoWarnings } from './suppressWarnings';
