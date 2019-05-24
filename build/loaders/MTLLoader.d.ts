@@ -3,4 +3,8 @@
  *
  * @author angelxuanchang
  */
-declare const THREE: any;
+declare function MTLLoader(manager: any): void;
+declare namespace MTLLoader {
+    var MaterialCreator: (baseUrl: any, options: any) => void;
+}
+export default MTLLoader;

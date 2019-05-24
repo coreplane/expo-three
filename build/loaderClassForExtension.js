@@ -1,4 +1,6 @@
-const THREE = require('./Three'); // DJM
+import THREE from './Three';
+import MTLLoader from './loaders/MTLLoader';
+import AMFLoader from './loaders/AMFLoader';
 function getExtension(uri) {
     const lastUriComponent = uri.split('.').pop();
     return lastUriComponent.split('?')[0].split('#')[0];
@@ -12,19 +14,9 @@ export function loaderClassForExtension(extension) {
         throw new Error('Supplied extension is not a valid string');
     }
     switch (extension.toLowerCase()) {
-        case '3mf': {
-            const loaderName = 'ThreeMFLoader';
-            if (!THREE[loaderName]) {
-                require('three/examples/js/loaders/3MFLoader');
-            }
-            return THREE[loaderName];
-        }
+        // DJM - removed many loaders due to TypeScript incompatibility
         case 'amf': {
-            const loaderName = 'AMFLoader';
-            if (!THREE[loaderName]) {
-                require('./loaders/AMFLoader');
-            }
-            return THREE[loaderName];
+            return AMFLoader;
         }
         case 'assimp': {
             const loaderName = 'AssimpLoader';
@@ -33,11 +25,6 @@ export function loaderClassForExtension(extension) {
             }
             return THREE[loaderName];
         }
-        case 'awd':
-            if (!THREE.AWDLoader) {
-                require('three/examples/js/loaders/AWDLoader');
-            }
-            return THREE.AWDLoader;
         case 'babylon': {
             const loaderName = 'BabylonLoader';
             if (!THREE[loaderName]) {
@@ -52,30 +39,6 @@ export function loaderClassForExtension(extension) {
             }
             return THREE[loaderName];
         }
-        case 'ctm':
-            if (!THREE.CTMLoader) {
-                require('three/examples/js/loaders/ctm/lzma');
-                require('three/examples/js/loaders/ctm/ctm');
-                require('three/examples/js/loaders/ctm/CTMLoader');
-            }
-            return THREE.CTMLoader;
-        case 'fbx':
-            if (!THREE.FBXLoader) {
-                require('three/examples/js/libs/inflate.min');
-                require('three/examples/js/loaders/FBXLoader');
-            }
-            return THREE.FBXLoader;
-        case 'glb':
-        case 'gltf':
-            if (!THREE.GLTFLoader)
-                require('three/examples/js/loaders/GLTFLoader');
-            return THREE.GLTFLoader;
-        case 'max':
-        case '3ds':
-            if (!THREE.TDSLoader) {
-                require('three/examples/js/loaders/TDSLoader');
-            }
-            return THREE.TDSLoader;
         case 'pcd': {
             const loaderName = 'PCDLoader';
             if (!THREE[loaderName]) {
@@ -90,26 +53,8 @@ export function loaderClassForExtension(extension) {
             }
             return THREE[loaderName];
         }
-        case 'obj':
-            if (!THREE.OBJLoader) {
-                require('three/examples/js/loaders/OBJLoader');
-            }
-            return THREE.OBJLoader;
         case 'mtl':
-            if (!THREE.MTLLoader) {
-                require('three/examples/js/loaders/MTLLoader');
-            }
-            return THREE.MTLLoader;
-        case 'dae':
-            if (!THREE.ColladaLoader) {
-                require('three/examples/js/loaders/ColladaLoader');
-            }
-            return THREE.ColladaLoader;
-        case 'stl':
-            if (!THREE.STLLoader) {
-                require('three/examples/js/loaders/STLLoader');
-            }
-            return THREE.STLLoader;
+            return MTLLoader;
         case 'vtk':
         case 'vtp': {
             const loaderName = 'VTKLoader';

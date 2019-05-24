@@ -3,15 +3,16 @@
  *
  * @author angelxuanchang
  */
-const THREE = require('../Three'); // DJM
+import THREE from 'three';
 // @ts-ignore
-THREE.MTLLoader = function (manager) {
+function MTLLoader(manager) {
     // @ts-ignore
     this.manager = manager !== undefined ? manager : THREE.DefaultLoadingManager;
-};
-THREE.MTLLoader.prototype = {
+}
+;
+MTLLoader.prototype = {
     // @ts-ignore
-    constructor: THREE.MTLLoader,
+    constructor: MTLLoader,
     /**
      * Loads and parses a MTL asset from a URL.
      *
@@ -65,7 +66,7 @@ THREE.MTLLoader.prototype = {
         this.texturePath = path;
     },
     setBaseUrl: function (path) {
-        console.warn('THREE.MTLLoader: .setBaseUrl() is deprecated. Use .setTexturePath( path ) for texture path or .setPath( path ) for general base path instead.');
+        console.warn('MTLLoader: .setBaseUrl() is deprecated. Use .setTexturePath( path ) for texture path or .setPath( path ) for general base path instead.');
         this.setTexturePath(path);
     },
     setCrossOrigin: function (value) {
@@ -78,7 +79,7 @@ THREE.MTLLoader.prototype = {
      * Parses a MTL file.
      *
      * @param {String} text - Content of MTL file
-     * @return {THREE.MTLLoader.MaterialCreator}
+     * @return {MTLLoader.MaterialCreator}
      *
      * @see setPath setTexturePath
      *
@@ -118,7 +119,7 @@ THREE.MTLLoader.prototype = {
             }
         }
         // @ts-ignore
-        var materialCreator = new THREE.MTLLoader.MaterialCreator(this.texturePath || this.path, this.materialOptions);
+        var materialCreator = new MTLLoader.MaterialCreator(this.texturePath || this.path, this.materialOptions);
         materialCreator.setCrossOrigin(this.crossOrigin);
         materialCreator.setManager(this.manager);
         materialCreator.setMaterials(materialsInfo);
@@ -140,7 +141,7 @@ THREE.MTLLoader.prototype = {
  * @constructor
  */
 // @ts-ignore
-THREE.MTLLoader.MaterialCreator = function (baseUrl, options) {
+MTLLoader.MaterialCreator = function (baseUrl, options) {
     // @ts-ignore
     this.baseUrl = baseUrl || '';
     // @ts-ignore
@@ -161,9 +162,9 @@ THREE.MTLLoader.MaterialCreator = function (baseUrl, options) {
     this.wrap = this.options && this.options.wrap ? this.options.wrap : THREE.RepeatWrapping;
 };
 // @ts-ignore
-THREE.MTLLoader.MaterialCreator.prototype = {
+MTLLoader.MaterialCreator.prototype = {
     // @ts-ignore
-    constructor: THREE.MTLLoader.MaterialCreator,
+    constructor: MTLLoader.MaterialCreator,
     crossOrigin: 'Anonymous',
     setCrossOrigin: function (value) {
         this.crossOrigin = value;
@@ -365,4 +366,5 @@ THREE.MTLLoader.MaterialCreator.prototype = {
         return texture;
     },
 };
+export default MTLLoader;
 //# sourceMappingURL=MTLLoader.js.map

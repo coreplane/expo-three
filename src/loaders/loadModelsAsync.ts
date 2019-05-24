@@ -1,7 +1,11 @@
 import AssetUtils from 'expo-asset-utils';
 import { Platform } from 'react-native';
-const THREE = require('../Three'); // DJM
+import THREE from '../Three';
 import readAsStringAsync from './readAsStringAsync';
+
+var MTLLoader = null;
+var OBJLoader = null;
+var ColladaLoader = null;
 
 function provideBundlingExtensionErrorMessage({ extension, funcName }) {
   return `
@@ -67,11 +71,11 @@ export async function loadMtlAsync({ asset, onAssetRequested }): Promise<any> {
   });
   if (!uri) return;
 
-  if (THREE.MTLLoader == null) {
-    require('./MTLLoader');
+  if (MTLLoader == null) {
+    MTLLoader = require('./MTLLoader');
   }
-
-  const loader = new THREE.MTLLoader();
+  // @ts-ignore
+  const loader = new MTLLoader();
   loader.setPath(onAssetRequested);
 
   return loadFileContentsAsync(loader, uri, 'loadMtlAsync');
@@ -101,10 +105,11 @@ export async function loadObjAsync(options: {
   });
   if (!uri) return;
 
-  if (THREE.OBJLoader == null) {
-    require('three/examples/js/loaders/OBJLoader');
+  if (OBJLoader == null) {
+    OBJLoader = require('three/examples/js/loaders/OBJLoader');
   }
-  const loader = new THREE.OBJLoader();
+  // @ts-ignore
+  const loader = new OBJLoader();
   loader.setPath(onAssetRequested as any);
   if (nextMaterials != null) {
     loader.setMaterials(nextMaterials);
@@ -123,15 +128,16 @@ export async function loadDaeAsync({ asset, onAssetRequested, onProgress }): Pro
     return;
   }
 
-  if (THREE.ColladaLoader == null) {
-    require('three/examples/js/loaders/ColladaLoader');
+  if (ColladaLoader == null) {
+    ColladaLoader = require('three/examples/js/loaders/ColladaLoader');
   }
 
   return new Promise((res, rej) =>
     new THREE.FileLoader().load(
       uri!,
       text => {
-        const loader = new THREE.ColladaLoader();
+        // @ts-ignore
+        const loader = new ColladaLoader();
         const parsedResult = (loader.parse as any)(text, onAssetRequested);
         res(parsedResult);
       },

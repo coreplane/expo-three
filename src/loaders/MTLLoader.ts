@@ -4,17 +4,17 @@
  * @author angelxuanchang
  */
 
-const THREE = require('../Three'); // DJM
+import THREE from 'three';
 
 // @ts-ignore
-THREE.MTLLoader = function(manager) {
+function MTLLoader (manager) {
   // @ts-ignore
   this.manager = manager !== undefined ? manager : THREE.DefaultLoadingManager;
 };
 
-THREE.MTLLoader.prototype = {
+MTLLoader.prototype = {
   // @ts-ignore
-  constructor: THREE.MTLLoader,
+  constructor: MTLLoader,
 
   /**
    * Loads and parses a MTL asset from a URL.
@@ -79,7 +79,7 @@ THREE.MTLLoader.prototype = {
 
   setBaseUrl: function(path) {
     console.warn(
-      'THREE.MTLLoader: .setBaseUrl() is deprecated. Use .setTexturePath( path ) for texture path or .setPath( path ) for general base path instead.',
+      'MTLLoader: .setBaseUrl() is deprecated. Use .setTexturePath( path ) for texture path or .setPath( path ) for general base path instead.',
     );
 
     this.setTexturePath(path);
@@ -97,7 +97,7 @@ THREE.MTLLoader.prototype = {
    * Parses a MTL file.
    *
    * @param {String} text - Content of MTL file
-   * @return {THREE.MTLLoader.MaterialCreator}
+   * @return {MTLLoader.MaterialCreator}
    *
    * @see setPath setTexturePath
    *
@@ -143,7 +143,7 @@ THREE.MTLLoader.prototype = {
     }
 
     // @ts-ignore
-    var materialCreator = new THREE.MTLLoader.MaterialCreator(
+    var materialCreator = new MTLLoader.MaterialCreator(
       this.texturePath || this.path,
       this.materialOptions,
     );
@@ -170,7 +170,7 @@ THREE.MTLLoader.prototype = {
  */
 
  // @ts-ignore
-THREE.MTLLoader.MaterialCreator = function(baseUrl, options) {
+MTLLoader.MaterialCreator = function(baseUrl, options) {
   // @ts-ignore
   this.baseUrl = baseUrl || '';
   // @ts-ignore
@@ -193,9 +193,9 @@ THREE.MTLLoader.MaterialCreator = function(baseUrl, options) {
 };
 
 // @ts-ignore
-THREE.MTLLoader.MaterialCreator.prototype = {
+MTLLoader.MaterialCreator.prototype = {
   // @ts-ignore
-  constructor: THREE.MTLLoader.MaterialCreator,
+  constructor: MTLLoader.MaterialCreator,
 
   crossOrigin: 'Anonymous',
 
@@ -475,3 +475,5 @@ THREE.MTLLoader.MaterialCreator.prototype = {
     return texture;
   },
 };
+
+export default MTLLoader;

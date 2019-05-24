@@ -34,14 +34,13 @@
     "@expo/browser-polyfill": "^0.0.1-alpha.3",
     "color-temperature": "0.2.7",
     "expo-asset-utils": "^1.0.0",
-    "three": "^0.102.1"
+    "three": "^0.104.0"
   },
   "peerDependencies": {
     "expo": ">= 30.0.0",
     "react-native": "*"
   },
   "devDependencies": {
-    "@types/three": "^0.93.22",
     "expo-module-scripts": "^1.0.0"
   },
   "jest": {

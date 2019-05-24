@@ -19,7 +19,7 @@
  *
  */
 import { TextDecoder } from 'text-encoding';
-const THREE = require('../Three'); // DJM
+import THREE from 'three';
 // @ts-ignore
 const { JSZip } = window;
 class AMFLoader {
@@ -324,6 +324,5 @@ class AMFLoader {
             manager !== undefined ? manager : THREE.DefaultLoadingManager;
     }
 }
-// @ts-ignore
-THREE.AMFLoader = AMFLoader;
+export default AMFLoader;
 //# sourceMappingURL=AMFLoader.js.map
