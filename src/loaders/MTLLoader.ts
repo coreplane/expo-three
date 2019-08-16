@@ -7,14 +7,15 @@
 import THREE from '../Three';
 
 // @ts-ignore
-function MTLLoader (manager) {
+THREE.MTLLoader = function(manager) {
   // @ts-ignore
   this.manager = manager !== undefined ? manager : THREE.DefaultLoadingManager;
 };
 
-MTLLoader.prototype = {
+// @ts-ignore
+THREE.MTLLoader.prototype = {
   // @ts-ignore
-  constructor: MTLLoader,
+  constructor: THREE.MTLLoader,
 
   /**
    * Loads and parses a MTL asset from a URL.
@@ -79,7 +80,7 @@ MTLLoader.prototype = {
 
   setBaseUrl: function(path) {
     console.warn(
-      'MTLLoader: .setBaseUrl() is deprecated. Use .setTexturePath( path ) for texture path or .setPath( path ) for general base path instead.',
+      'THREE.MTLLoader: .setBaseUrl() is deprecated. Use .setTexturePath( path ) for texture path or .setPath( path ) for general base path instead.',
     );
 
     this.setTexturePath(path);
@@ -97,7 +98,7 @@ MTLLoader.prototype = {
    * Parses a MTL file.
    *
    * @param {String} text - Content of MTL file
-   * @return {MTLLoader.MaterialCreator}
+   * @return {THREE.MTLLoader.MaterialCreator}
    *
    * @see setPath setTexturePath
    *
@@ -143,7 +144,7 @@ MTLLoader.prototype = {
     }
 
     // @ts-ignore
-    var materialCreator = new MTLLoader.MaterialCreator(
+    var materialCreator = new THREE.MTLLoader.MaterialCreator(
       this.texturePath || this.path,
       this.materialOptions,
     );
@@ -169,8 +170,8 @@ MTLLoader.prototype = {
  * @constructor
  */
 
- // @ts-ignore
-MTLLoader.MaterialCreator = function(baseUrl, options) {
+// @ts-ignore
+THREE.MTLLoader.MaterialCreator = function(baseUrl, options) {
   // @ts-ignore
   this.baseUrl = baseUrl || '';
   // @ts-ignore
@@ -183,19 +184,22 @@ MTLLoader.MaterialCreator = function(baseUrl, options) {
   this.materialsArray = [];
   // @ts-ignore
   this.nameLookup = {};
-  
+
   // @ts-ignore
   this.side =
+    // @ts-ignore
+    this.options && this.options.side ? this.options.side : THREE.FrontSide;
   // @ts-ignore
-  this.options && this.options.side ? this.options.side : THREE.FrontSide;
-  // @ts-ignore
-  this.wrap = this.options && this.options.wrap ? this.options.wrap : THREE.RepeatWrapping;
+  this.wrap =
+    this.options && this.options.wrap
+      ? this.options.wrap
+      : THREE.RepeatWrapping;
 };
 
 // @ts-ignore
-MTLLoader.MaterialCreator.prototype = {
+THREE.MTLLoader.MaterialCreator.prototype = {
   // @ts-ignore
-  constructor: MTLLoader.MaterialCreator,
+  constructor: THREE.MTLLoader.MaterialCreator,
 
   crossOrigin: 'Anonymous',
 
@@ -334,67 +338,67 @@ MTLLoader.MaterialCreator.prototype = {
           // Diffuse color (color under white light) using RGB values
           // @ts-ignore
           params.color = new THREE.Color().fromArray(value);
-          
+
           break;
-          
-          case 'ks':
+
+        case 'ks':
           // Specular color (color when light is reflected from shiny surface) using RGB values
           // @ts-ignore
           params.specular = new THREE.Color().fromArray(value);
-          
+
           break;
-          
-          case 'map_kd':
+
+        case 'map_kd':
           // Diffuse texture map
-          
+
           setMapForType('map', value);
-          
+
           break;
-          
-          case 'map_ks':
+
+        case 'map_ks':
           // Specular map
-          
+
           setMapForType('specularMap', value);
-          
+
           break;
-          
-          case 'norm':
+
+        case 'norm':
           setMapForType('normalMap', value);
-          
+
           break;
-          
-          case 'map_bump':
-          case 'bump':
+
+        case 'map_bump':
+        case 'bump':
           // Bump texture map
-          
+
           setMapForType('bumpMap', value);
-          
+
           break;
-          
-          case 'ns':
+
+        case 'ns':
           // The specular exponent (defines the focus of the specular highlight)
           // A high exponent results in a tight, concentrated highlight. Ns values normally range from 0 to 1000.
-          
+
           // @ts-ignore
           params.shininess = parseFloat(value);
-          
+
           break;
-          
-          case 'd':
+
+        case 'd':
           n = parseFloat(value);
-          
+
           if (n < 1) {
             // @ts-ignore
             params.opacity = n;
             // @ts-ignore
             params.transparent = true;
           }
-          
+
           break;
-          
-          case 'tr':
+
+        case 'tr':
           n = parseFloat(value);
-          
+
           if (n > 0) {
             // @ts-ignore
             params.opacity = 1 - n;
@@ -475,5 +479,3 @@ MTLLoader.MaterialCreator.prototype = {
     return texture;
   },
 };
-
-export default MTLLoader;

@@ -21,7 +21,6 @@
 
 import { TextDecoder } from 'text-encoding';
 import THREE from '../Three';
-
 // @ts-ignore
 const {JSZip} = window;
 
@@ -384,4 +383,7 @@ class AMFLoader {
         };
       }
       
-export default AMFLoader;
+      // @ts-ignore
+      THREE.AMFLoader = AMFLoader;
+      
+      

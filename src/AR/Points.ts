@@ -1,4 +1,4 @@
-import { RawFeaturePoint } from 'expo/build/AR'; // DJM
+import { RawFeaturePoint } from 'expo/build/AR';
 import { AR } from 'expo';
 
 import THREE from '../Three';

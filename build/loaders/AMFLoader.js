@@ -324,5 +324,6 @@ class AMFLoader {
             manager !== undefined ? manager : THREE.DefaultLoadingManager;
     }
 }
-export default AMFLoader;
+// @ts-ignore
+THREE.AMFLoader = AMFLoader;
 //# sourceMappingURL=AMFLoader.js.map

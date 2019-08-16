@@ -1,6 +1,4 @@
 import THREE from './Three';
-import MTLLoader from './loaders/MTLLoader';
-import AMFLoader from './loaders/AMFLoader';
 function getExtension(uri) {
     const lastUriComponent = uri.split('.').pop();
     return lastUriComponent.split('?')[0].split('#')[0];
@@ -14,9 +12,19 @@ export function loaderClassForExtension(extension) {
         throw new Error('Supplied extension is not a valid string');
     }
     switch (extension.toLowerCase()) {
-        // DJM - removed many loaders due to TypeScript incompatibility
+        case '3mf': {
+            const loaderName = 'ThreeMFLoader';
+            if (!THREE[loaderName]) {
+                require('three/examples/js/loaders/3MFLoader');
+            }
+            return THREE[loaderName];
+        }
         case 'amf': {
-            return AMFLoader;
+            const loaderName = 'AMFLoader';
+            if (!THREE[loaderName]) {
+                require('./loaders/AMFLoader');
+            }
+            return THREE[loaderName];
         }
         case 'assimp': {
             const loaderName = 'AssimpLoader';
@@ -25,6 +33,13 @@ export function loaderClassForExtension(extension) {
             }
             return THREE[loaderName];
         }
+        case 'awd':
+            // @ts-ignore
+            if (!THREE.AWDLoader) {
+                require('three/examples/js/loaders/AWDLoader');
+            }
+            // @ts-ignore
+            return THREE.AWDLoader;
         case 'babylon': {
             const loaderName = 'BabylonLoader';
             if (!THREE[loaderName]) {
@@ -39,6 +54,37 @@ export function loaderClassForExtension(extension) {
             }
             return THREE[loaderName];
         }
+        case 'ctm':
+            // @ts-ignore
+            if (!THREE.CTMLoader) {
+                require('three/examples/js/loaders/ctm/lzma');
+                require('three/examples/js/loaders/ctm/ctm');
+                require('three/examples/js/loaders/ctm/CTMLoader');
+            }
+            // @ts-ignore
+            return THREE.CTMLoader;
+        case 'fbx':
+            // @ts-ignore
+            if (!THREE.FBXLoader) {
+                require('three/examples/js/libs/inflate.min');
+                require('three/examples/js/loaders/FBXLoader');
+            }
+            // @ts-ignore
+            return THREE.FBXLoader;
+        case 'glb':
+        case 'gltf':
+            // @ts-ignore
+            if (!THREE.GLTFLoader)
+                require('three/examples/js/loaders/GLTFLoader');
+            // @ts-ignore
+            return THREE.GLTFLoader;
+        case 'max':
+        case '3ds':
+            // @ts-ignore
+            if (!THREE.TDSLoader)
+                require('three/examples/js/loaders/TDSLoader');
+            // @ts-ignore
+            return THREE.TDSLoader;
         case 'pcd': {
             const loaderName = 'PCDLoader';
             if (!THREE[loaderName]) {
@@ -53,8 +99,30 @@ export function loaderClassForExtension(extension) {
             }
             return THREE[loaderName];
         }
+        case 'obj':
+            // @ts-ignore
+            if (!THREE.OBJLoader)
+                require('three/examples/js/loaders/OBJLoader');
+            // @ts-ignore
+            return THREE.OBJLoader;
         case 'mtl':
-            return MTLLoader;
+            // @ts-ignore
+            if (!THREE.MTLLoader)
+                require('three/examples/js/loaders/MTLLoader');
+            // @ts-ignore
+            return THREE.MTLLoader;
+        case 'dae':
+            // @ts-ignore
+            if (!THREE.ColladaLoader)
+                require('three/examples/js/loaders/ColladaLoader');
+            // @ts-ignore
+            return THREE.ColladaLoader;
+        case 'stl':
+            // @ts-ignore
+            if (!THREE.STLLoader)
+                require('three/examples/js/loaders/STLLoader');
+            // @ts-ignore
+            return THREE.STLLoader;
         case 'vtk':
         case 'vtp': {
             const loaderName = 'VTKLoader';
@@ -74,7 +142,8 @@ export function loaderClassForExtension(extension) {
         //   if (!THREE.DRACOLoader) require('three/examples/js/loaders/draco/DRACOLoader');
         //   return THREE.DRACOLoader;
         default:
-            throw new Error('ExpoTHREE.loaderClassForExtension(): Unrecognized file type ' + extension);
+            throw new Error('ExpoTHREE.loaderClassForExtension(): Unrecognized file type ' +
+                extension);
     }
 }
 //# sourceMappingURL=loaderClassForExtension.js.map
