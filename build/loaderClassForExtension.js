@@ -57,9 +57,11 @@ export function loaderClassForExtension(extension) {
         case 'ctm':
             // @ts-ignore
             if (!THREE.CTMLoader) {
+                /* DJM
                 require('three/examples/js/loaders/ctm/lzma');
                 require('three/examples/js/loaders/ctm/ctm');
                 require('three/examples/js/loaders/ctm/CTMLoader');
+                */
             }
             // @ts-ignore
             return THREE.CTMLoader;
