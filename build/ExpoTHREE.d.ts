@@ -19,4 +19,5 @@ export { default as THREE } from './Three';
 export declare const ThreeAR: typeof AR;
 export { AR, utils, Renderer };
 export * from './loaders/loadModelsAsync';
+export * from './loaders/loadTextureAsync';
 export { default as suppressExpoWarnings } from './suppressWarnings';
